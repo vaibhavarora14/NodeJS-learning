@@ -1,15 +1,21 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log('1st use function');
-  next();
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/add-product', (req, res, next) => {
+  res.send(`<form action="/product" method="POST">
+    <input type="text" name="title" />
+    <button type="submit">Add product</button>
+  </form>`);
 });
 
-app.use('/users', (req, res, next) => {
-  console.log('2nd use function');
-  res.send('<h1>Users Page</h1>')
+app.post('/product', (req, res, next) => {
+  const body = req.body;
+  console.log(body);
+  res.redirect('/');
 });
 
 app.use('/', (req, res, next) => {
