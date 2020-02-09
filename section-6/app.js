@@ -6,7 +6,11 @@ const bodyParser = require('body-parser');
 const app = express();
 const handlebars = require('express-handlebars');
 
-app.engine('hbs', handlebars());
+app.engine('hbs', handlebars({
+  layoutsDir: 'views/layouts/',
+  defaultLayout: 'main-layout',
+  extname: 'hbs'
+}));
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 
